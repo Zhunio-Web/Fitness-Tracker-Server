@@ -13,6 +13,7 @@ let cors = require( './lib/cors' );
 // Load Routers
 let index = require( './routes/index' );
 let api = require( './routes/api' );
+let auth = require( './routes/auth' );
 
 // Express app
 let app = express();
@@ -31,6 +32,7 @@ app.use( express.static( path.join( __dirname, '../public' ) ) );
 // User defined middleware Routes
 app.use( '/', index );
 app.use( '/api', api );
+app.use( '/auth', auth );
 
 // Error Logging, catching, and handling
 app.use( logger.error );
