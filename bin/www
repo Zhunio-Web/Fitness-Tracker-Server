@@ -10,7 +10,7 @@ let http = require( 'http' );
 /**
  * Get port from environment and store in Express.
  */
-let port = normalizePort( process.env.PORT );
+let port = normalizePort( 3000 | process.env.PORT );
 app.set( 'port', port );
 
 /**
