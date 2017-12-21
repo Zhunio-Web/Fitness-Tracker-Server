@@ -101,14 +101,26 @@ function handleWorkoutsByTrainer(req, res) {
 }
 
 // GET: /api/workouts
-api.get( '/workouts', handleWorkouts );
+api.post( '/workouts', auth.checkAuthenticated, handleWorkouts );
 
 function handleWorkouts(req, res) {
+    let workout = req.body;
+    
     db.readWorkouts( (err, workouts) => {
         if ( err ) return mw.sendErrorMessage( res, err.message );
 
-        res.json( workouts );
+        let response = filterbyName(workouts);
+
+        res.json( response );
     } );
+    
+    function filterbyName(workouts) {
+        return workouts.filter(byName);
+    }
+    
+    function byName(element) {
+        return element.name.toLowerCase().includes(workout.name.toLowerCase());
+    }
 }
 
 // POST: /api/workouts
